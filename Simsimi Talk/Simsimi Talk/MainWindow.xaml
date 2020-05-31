@@ -83,56 +83,9 @@
                     </Grid.ColumnDefinitions>
                     
                     <Grid Grid.Column="0">
-                        <ListView x:Name="lvUserMessageList" ItemsSource="{Binding UserMsgItems}" Tag="{Binding SimSimiMsgItems}"
-                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                                  ScrollViewer.CanContentScroll="False"
-                                  BorderThickness="0">
-                            <ListView.ItemContainerStyle>
-                                <Style TargetType="ListViewItem">
-                                    <!--테두리 나타나는 효과 제거-->
-                                    <Setter Property="Background" Value="Transparent"/>
-                                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                                    <Setter Property="Focusable" Value="False"/>
-
-                                    <!--ListViewItem HighLight 제거-->
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                                <ContentPresenter />
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </ListView.ItemContainerStyle>
-                            
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Margin="10">
-                                        <StackPanel.Resources>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="FontFamily" Value="나눔스퀘어_ac"/>
-                                                <Setter Property="FontSize" Value="25"/>
-                                                <Setter Property="TextWrapping" Value="Wrap"/>
-                                            </Style>
-                                        </StackPanel.Resources>
-
-                                        <Border Background="#ffe34f" CornerRadius="20" HorizontalAlignment="Left">
-                                            <TextBlock x:Name="tbUser" Margin="10" 
-                                                       Text="{Binding UserMessage, StringFormat={}나 : {0}}">
-                                            </TextBlock>
-                                        </Border>
-                                        <TextBlock Height="50"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </Grid>
-                    
-                    <Grid Grid.Column="1">
                         <ListView x:Name="lvSimSimiMessageList" ItemsSource="{Binding SimSimiMsgItems}"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"  
-                                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                              ScrollViewer.VerticalScrollBarVisibility="Hidden"
                               ScrollViewer.CanContentScroll="False"
                               BorderThickness="0">
                             <ListView.ItemContainerStyle>
@@ -152,7 +105,7 @@
                                     </Setter>
                                 </Style>
                             </ListView.ItemContainerStyle>
-                            
+
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Margin="10">
@@ -167,8 +120,9 @@
 
                                         <TextBlock Height="50"/>
                                         <!--<TextBlock Height="{Binding tbMsgHeight}"/>-->
-                                        
-                                        <Border Background="#32353f" CornerRadius="20" HorizontalAlignment="Right">
+
+                                        <Border Background="#32353f" CornerRadius="20" HorizontalAlignment="Left">
+                                            <!--Grid와 동일하게 적용하려고 했으나, StackPanel로 하면 적용이 안됨.-->
                                             <!--<StackPanel Orientation="Horizontal">
                                                 <StackPanel.Resources>
                                                     <Style TargetType="TextBlock">
@@ -196,6 +150,53 @@
                                                 </Grid>
                                             </Grid>
                                         </Border>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                    
+                    <Grid Grid.Column="1">
+                        <ListView x:Name="lvUserMessageList" ItemsSource="{Binding UserMsgItems}" Tag="{Binding SimSimiMsgItems}"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                  ScrollViewer.CanContentScroll="False"
+                                  BorderThickness="0">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <!--테두리 나타나는 효과 제거-->
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                    <Setter Property="Focusable" Value="False"/>
+
+                                    <!--ListViewItem HighLight 제거-->
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                <ContentPresenter />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="10">
+                                        <StackPanel.Resources>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="FontFamily" Value="나눔스퀘어_ac"/>
+                                                <Setter Property="FontSize" Value="25"/>
+                                                <Setter Property="TextWrapping" Value="Wrap"/>
+                                            </Style>
+                                        </StackPanel.Resources>
+
+                                        <Border Background="#ffe34f" CornerRadius="20" HorizontalAlignment="Right">
+                                            <TextBlock x:Name="tbUser" Margin="10" 
+                                                       Text="{Binding UserMessage, StringFormat={}나 : {0}}">
+                                            </TextBlock>
+                                        </Border>
+                                        <TextBlock Height="50"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>

@@ -73,7 +73,18 @@ namespace Simsimi_Talk
 
         private void FindMyStuff()
         {
-            var ch = this.GetChildren(this.lvUserMessageList);
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(lvUserMessageList); i++)
+            {
+                Visual visual = VisualTreeHelper.GetChild(lvUserMessageList, i) as Visual;
+                Debug.WriteLine(visual);
+            }
+
+            //var stuff = this.GetChildren(this.lvUserMessageList);
+
+            //foreach (var item in stuff)
+            //{
+            //    Debug.WriteLine(item);
+            //}
         }
 
         private List<FrameworkElement> GetChildren(DependencyObject parent)

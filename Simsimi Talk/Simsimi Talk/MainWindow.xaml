@@ -85,6 +85,7 @@
                     <Grid Grid.Column="0">
                         <ListView x:Name="lvUserMessageList" ItemsSource="{Binding UserMsgItems}" Tag="{Binding SimSimiMsgItems}"
                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
                                   ScrollViewer.CanContentScroll="False"
                                   BorderThickness="0">
                             <ListView.ItemContainerStyle>
@@ -115,11 +116,13 @@
                                                 <Setter Property="TextWrapping" Value="Wrap"/>
                                             </Style>
                                         </StackPanel.Resources>
+
                                         <Border Background="#ffe34f" CornerRadius="20" HorizontalAlignment="Left">
                                             <TextBlock x:Name="tbUser" Margin="10" 
                                                        Text="{Binding UserMessage, StringFormat={}나 : {0}}">
                                             </TextBlock>
                                         </Border>
+                                        <TextBlock Height="50"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -129,6 +132,7 @@
                     <Grid Grid.Column="1">
                         <ListView x:Name="lvSimSimiMessageList" ItemsSource="{Binding SimSimiMsgItems}"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"  
+                                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
                               ScrollViewer.CanContentScroll="False"
                               BorderThickness="0">
                             <ListView.ItemContainerStyle>
@@ -160,8 +164,9 @@
                                                 <Setter Property="Foreground" Value="white"/>
                                             </Style>
                                         </StackPanel.Resources>
-                                        
-                                        <TextBlock Height="{Binding tbMsgHeight}"/>
+
+                                        <TextBlock Height="50"/>
+                                        <!--<TextBlock Height="{Binding tbMsgHeight}"/>-->
                                         
                                         <Border Background="#32353f" CornerRadius="20" HorizontalAlignment="Right">
                                             <!--<StackPanel Orientation="Horizontal">

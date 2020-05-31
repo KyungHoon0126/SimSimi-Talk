@@ -5,8 +5,238 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Simsimi_Talk"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="SimSimi" Height="800" Width="1000"
+        KeyDown="Window_KeyDown">
+
+    <Window.Resources>
+        <Style x:Key="tbStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="Border"
+                                Padding="10 0 0 0"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                CornerRadius="3"
+                                BorderThickness="1">
+
+                            <Grid Height="50">
+                                <Grid>
+                                    <Grid Margin="7 0 20 0">
+                                        <ScrollViewer x:Name="PART_ContentHost"
+                                                      VerticalAlignment="Center"
+                                                      Cursor="IBeam"/>
+                                        <TextBlock x:Name="WaterMark" Foreground="#E2E2E2"
+                                                   Margin="2 0 0 0"
+                                                   VerticalAlignment="Center"
+                                                   Visibility="Collapsed"
+                                                   FontWeight="Medium"
+                                                   Text="{TemplateBinding Tag}"/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Text" Value="">
+                                <Setter TargetName="WaterMark" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="7.5*"/>
+            <RowDefinition Height="1.5*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" x:Name="gdTitle">
+            <Border Margin="0,0,0,10" BorderBrush="Transparent" BorderThickness="1" Background="White" CornerRadius="0">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="2" BlurRadius="20" Color="#E2E2E2"/>
+                </Border.Effect>
+            </Border>
+
+            <Border BorderThickness="1" BorderBrush="Transparent">
+                <TextBlock Text="SimSimi" Margin="5" FontSize="30" 
+                       FontFamily="나눔고딕" FontWeight="ExtraBold"
+                       VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="1" x:Name="gdChatContent">
+            <Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="White" CornerRadius="0">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="2" BlurRadius="20" Color="#E2E2E2"/>
+                </Border.Effect>
+            </Border>
+
+            <Border BorderThickness="1" BorderBrush="Transparent" Margin="10">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Grid Grid.Column="0">
+                        <ListView x:Name="lvUserMessageList" ItemsSource="{Binding UserMsgItems}" Tag="{Binding SimSimiMsgItems}"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                                  ScrollViewer.CanContentScroll="False"
+                                  BorderThickness="0">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <!--테두리 나타나는 효과 제거-->
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                    <Setter Property="Focusable" Value="False"/>
+
+                                    <!--ListViewItem HighLight 제거-->
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                <ContentPresenter />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="10">
+                                        <StackPanel.Resources>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="FontFamily" Value="나눔스퀘어_ac"/>
+                                                <Setter Property="FontSize" Value="25"/>
+                                                <Setter Property="TextWrapping" Value="Wrap"/>
+                                            </Style>
+                                        </StackPanel.Resources>
+                                        <Border Background="#ffe34f" CornerRadius="20" HorizontalAlignment="Left">
+                                            <TextBlock x:Name="tbUser" Margin="10" 
+                                                       Text="{Binding UserMessage, StringFormat={}나 : {0}}">
+                                            </TextBlock>
+                                        </Border>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                    
+                    <Grid Grid.Column="1">
+                        <ListView x:Name="lvSimSimiMessageList" ItemsSource="{Binding SimSimiMsgItems}"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"  
+                              ScrollViewer.CanContentScroll="False"
+                              BorderThickness="0">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <!--테두리 나타나는 효과 제거-->
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                    <Setter Property="Focusable" Value="False"/>
+
+                                    <!--ListViewItem HighLight 제거-->
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                <ContentPresenter/>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="10">
+                                        <StackPanel.Resources>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="FontFamily" Value="나눔스퀘어_ac"/>
+                                                <Setter Property="FontSize" Value="25"/>
+                                                <Setter Property="TextWrapping" Value="Wrap"/>
+                                                <Setter Property="Foreground" Value="white"/>
+                                            </Style>
+                                        </StackPanel.Resources>
+                                        
+                                        <TextBlock Height="{Binding tbMsgHeight}"/>
+                                        
+                                        <Border Background="#32353f" CornerRadius="20" HorizontalAlignment="Right">
+                                            <!--<StackPanel Orientation="Horizontal">
+                                                <StackPanel.Resources>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="FontFamily" Value="나눔스퀘어_ac"/>
+                                                        <Setter Property="FontSize" Value="25"/>
+                                                        <Setter Property="TextWrapping" Value="Wrap"/>
+                                                        <Setter Property="Foreground" Value="white"/>
+                                                    </Style>
+                                                </StackPanel.Resources>
+                                                <Image Source="/Assets/Simsimi.png" Height="40"/>
+                                                <TextBlock x:Name="tbSimsimi" Margin="10" 
+                                                           Text="{Binding SimSimiMessage, StringFormat={}심심이 : {0}}"/>
+                                            </StackPanel>-->
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="1*"/>
+                                                    <ColumnDefinition Width="9*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0">
+                                                    <Image Source="/Assets/Simsimi.png" Height="40" VerticalAlignment="Top" Margin="10,5,0,0"/>
+                                                </Grid>
+                                                <Grid Grid.Column="1">
+                                                    <TextBlock x:Name="tbSimsimi" Margin="10"  
+                                                               Text="{Binding SimSimiMessage, StringFormat={}심심이 : {0}}"/>
+                                                </Grid>
+                                            </Grid>
+                                        </Border>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="2" x:Name="gdUserMsg">
+            <Border Margin="10" BorderBrush="Transparent" BorderThickness="1" Background="White" CornerRadius="0">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="2" BlurRadius="20" Color="#E2E2E2"/>
+                </Border.Effect>
+            </Border>   
+
+            <Border BorderThickness="1" BorderBrush="Transparent">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="9*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <TextBox x:Name="tbUserMsg"
+                                 Style="{StaticResource tbStyle}" 
+                                 VerticalAlignment="Center"
+                                 Width="900"
+                                 FontSize="18"
+                                 TextWrapping="Wrap"
+                                 BorderBrush="Transparent" 
+                                 Tag="메시지를 입력하세요."/>
+                    </Grid>
+
+                    <Grid Grid.Column="1">
+                        <Button Background="Transparent"
+                                BorderBrush="Transparent"
+                                Height="30" Width="30"
+                                Click="btnSendMsg_Click">
+                            <ContentControl>
+                                <Image Source="/Assets/SendButtonImg.png"/>
+                            </ContentControl>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Window>

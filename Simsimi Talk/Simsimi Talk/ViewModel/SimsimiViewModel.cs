@@ -1,0 +1,121 @@
+﻿using Newtonsoft.Json.Linq;
+using Prism.Mvvm;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+
+namespace Simsimi_Talk.ViewModel
+{
+    public class User : BindableBase
+    {
+        private string _userMessage;
+        public string UserMessage
+        {
+            get => _userMessage;
+            set
+            {
+                SetProperty(ref _userMessage, value);
+            }
+        }
+    }
+
+    public class SimSimi : BindableBase 
+    {
+        private string _simSimiMessage;
+        public string SimSimiMessage
+        {
+            get => _simSimiMessage;
+            set
+            {
+                SetProperty(ref _simSimiMessage, value);
+            }
+        }
+    }
+
+    public class SimsimiViewModel : BindableBase
+    {
+        private ObservableCollection<User> _userMsgItems = new ObservableCollection<User>();
+        public ObservableCollection<User> UserMsgItems
+        {
+            get => _userMsgItems;
+            set
+            {
+                SetProperty(ref _userMsgItems, value);
+            }
+        }
+
+        private ObservableCollection<SimSimi> _simSimiMsgItems = new ObservableCollection<SimSimi>();
+        public ObservableCollection<SimSimi> SimSimiMsgItems
+        {
+            get => _simSimiMsgItems;
+            set
+            {
+                SetProperty(ref _simSimiMsgItems, value);
+            }
+        }
+
+        private int _tbMsgHeight;
+        public int TbMsgHeight
+        {
+            get => _tbMsgHeight;
+            set
+            {
+                SetProperty(ref _tbMsgHeight, value);
+            }
+        }
+
+        private const string API_URL = "https://wsapi.simsimi.com/190410/talk";
+
+        //curl -X POST https://wsapi.simsimi.com/190410/talk \
+        //     -H "Content-Type: application/json" \
+        //     -H "x-api-key: PASTE_YOUR_PROJECT_KEY_HERE" \
+        //     -d '{
+        //            "utext": "안녕", 
+        //            "lang": "ko" 
+        //     }' 
+
+        public async void GetSimsimiMessage(string userMsg)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                using (var request = new HttpRequestMessage(new HttpMethod("POST"), API_URL))
+                {
+                    request.Headers.TryAddWithoutValidation
+                    (
+                        "x-api-key", "lXlh0jm0ZMbYsTgaODd9FAsQChwYwLtngaPmAn-u"
+                    );
+
+                    request.Content = new StringContent("{\n \"utext\": \"" + userMsg + "\", \n\"lang\": \"ko\" \n}");
+                    request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+
+                    var response = await httpClient.SendAsync(request);
+                    string res = await response.Content.ReadAsStringAsync();
+
+                    JToken jToken = JToken.Parse(res);
+                    
+                    string sMsg = jToken["atext"].ToString();
+                    if(sMsg.Equals(userMsg))
+                    {
+                        sMsg.Replace(userMsg, "");
+                    }
+
+                    User user = new User();
+                    SimSimi simSimi = new SimSimi();
+
+                    user.UserMessage = userMsg;
+                    simSimi.SimSimiMessage = sMsg;
+
+                    // Property Value Add
+                    UserMsgItems.Add(user);
+                    SimSimiMsgItems.Add(simSimi);
+                }
+            }
+        }
+    }
+}

@@ -79,14 +79,17 @@ namespace Simsimi_Talk
                 Debug.WriteLine(visual);
             }
 
+            // 찾는 Control 요소
             //var stuff = this.GetChildren(this.lvUserMessageList);
 
+            // 요소 확인
             //foreach (var item in stuff)
             //{
             //    Debug.WriteLine(item);
             //}
         }
 
+        // Control안의 Control 접근을 위한 시각적 트리 탐색
         private List<FrameworkElement> GetChildren(DependencyObject parent)
         {
             List<FrameworkElement> controls = new List<FrameworkElement>();
@@ -100,6 +103,7 @@ namespace Simsimi_Talk
                 }
                 controls.AddRange(this.GetChildren(child));
             }
+
             return controls;
         }
 

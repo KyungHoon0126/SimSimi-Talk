@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using Prism.Mvvm;
+using Simsimi_Talk.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,34 +13,11 @@ using System.Windows.Controls;
 
 namespace Simsimi_Talk.ViewModel
 {
-    public class User : BindableBase
-    {
-        private string _userMessage;
-        public string UserMessage
-        {
-            get => _userMessage;
-            set
-            {
-                SetProperty(ref _userMessage, value);
-            }
-        }
-    }
-
-    public class SimSimi : BindableBase 
-    {
-        private string _simSimiMessage;
-        public string SimSimiMessage
-        {
-            get => _simSimiMessage;
-            set
-            {
-                SetProperty(ref _simSimiMessage, value);
-            }
-        }
-    }
-
     public class SimsimiViewModel : BindableBase
     {
+        private const string API_URL = "https://wsapi.simsimi.com/190410/talk";
+
+        #region Properties
         private ObservableCollection<User> _userMsgItems = new ObservableCollection<User>();
         public ObservableCollection<User> UserMsgItems
         {
@@ -69,8 +47,9 @@ namespace Simsimi_Talk.ViewModel
                 SetProperty(ref _tbMsgHeight, value);
             }
         }
+        #endregion
 
-        private const string API_URL = "https://wsapi.simsimi.com/190410/talk";
+        // 기존 API CURL 요청 예시
 
         //curl -X POST https://wsapi.simsimi.com/190410/talk \
         //     -H "Content-Type: application/json" \
@@ -80,6 +59,7 @@ namespace Simsimi_Talk.ViewModel
         //            "lang": "ko" 
         //     }' 
 
+        // Request
         public async void GetSimsimiMessage(string userMsg)
         {
             using (var httpClient = new HttpClient())

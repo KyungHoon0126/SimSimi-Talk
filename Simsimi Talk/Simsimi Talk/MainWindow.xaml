@@ -62,9 +62,9 @@
             </Border>
 
             <Border BorderThickness="1" BorderBrush="Transparent">
-                <TextBlock Text="SimSimi" Margin="5" FontSize="30" 
-                       FontFamily="나눔고딕" FontWeight="ExtraBold"
-                       VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                <TextBlock Text="SimSimi" Margin="30,0,0,0" FontSize="30" 
+                           FontFamily="나눔고딕" FontWeight="ExtraBold"
+                           VerticalAlignment="Center" HorizontalAlignment="Left"/>
             </Border>
         </Grid>
 

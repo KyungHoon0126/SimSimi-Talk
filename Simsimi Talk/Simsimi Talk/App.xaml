@@ -1,7 +1,7 @@
-﻿<Application x:Class="Simsimi_Talk.App"
+﻿<Application x:Class="SimSimi_Talk.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Simsimi_Talk"
+             xmlns:local="clr-namespace:SimSimi_Talk"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

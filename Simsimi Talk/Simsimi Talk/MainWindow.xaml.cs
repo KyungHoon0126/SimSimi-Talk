@@ -1,6 +1,9 @@
 ﻿using RestSharp;
+using SimSimi_Talk.ViewModel;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -17,7 +20,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace Simsimi_Talk
+namespace SimSimi_Talk
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -29,6 +32,9 @@ namespace Simsimi_Talk
         ListView lvUser;
         ListView lvSimSimi;
 
+        ObservableCollection<Model.User> users;
+        ObservableCollection<Model.SimSimi> simSimis;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -38,8 +44,14 @@ namespace Simsimi_Talk
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             this.DataContext = App.simsimiViewModel;
+
+            // ListView
             lvUser = lvUserMessageList;
             lvSimSimi = lvSimSimiMessageList;
+
+            // ObservableCollection
+            users = App.simsimiViewModel.UserMsgItems;
+            simSimis = App.simsimiViewModel.SimSimiMsgItems;
         }
 
         // SendButton Click Event
@@ -112,41 +124,28 @@ namespace Simsimi_Talk
         {
             Debug.WriteLine(listView.Name);
 
-            if (listView.Items.Count > 0 && listView.Name == "lvUserMessageList")
+            if (listView.Items.Count > 0)
             {
-                ScrollToLastItem_User();
-                // listView.Dispatcher.BeginInvoke(DispatcherPriority.Background, new ScrollToLastItemDelegate(ScrollToLastItem));
-            }
-            else if (listView.Items.Count > 0 && listView.Name == "lvSimSimiMessageList")
-            {
-                ScrollToLastItem_SimSimi();
-                // listView.Dispatcher.BeginInvoke(DispatcherPriority.Background, new ScrollToLastItemDelegate(ScrollToLastItem));
+                if(listView.Name == "lvUserMessageList")
+                {
+                    ScrollToLastItem<Model.User>(listView, App.simsimiViewModel.UserMsgItems);
+                }
+                else if(listView.Name == "lvSimSimiMessageList")
+                {
+                    ScrollToLastItem<Model.SimSimi>(listView, App.simsimiViewModel.SimSimiMsgItems);
+                }
             }
         }
 
-        // Find ScrollToLastItem User
-        public void ScrollToLastItem_User()
+        // Find Scroll To LastItem 
+        public void ScrollToLastItem<T>(ListView listView, ObservableCollection<T> collection) where T : class
         {
-            lvUserMessageList.SelectedItem = lvUserMessageList.Items.GetItemAt(App.simsimiViewModel.UserMsgItems.Count - 1);
-            lvUserMessageList.ScrollIntoView(lvUserMessageList.SelectedItem);
+            listView.SelectedItem = listView.Items.GetItemAt(collection.Count - 1);
+            listView.ScrollIntoView(listView.SelectedItem);
             
-            ListViewItem item = lvUserMessageList.ItemContainerGenerator.ContainerFromItem(lvUserMessageList.SelectedItem) as ListViewItem;
+            ListViewItem item = listView.ItemContainerGenerator.ContainerFromItem(listView.SelectedItem) as ListViewItem;
             
             if(item != null)
-            {
-                item.Focus();
-            }
-        }
-
-        // Find ScrollToLastItem SimSimi
-        public void ScrollToLastItem_SimSimi()
-        {
-            lvSimSimiMessageList.SelectedItem = lvSimSimiMessageList.Items.GetItemAt(App.simsimiViewModel.SimSimiMsgItems.Count - 1);
-            lvSimSimiMessageList.ScrollIntoView(lvSimSimiMessageList.SelectedItem);
-            
-            ListViewItem item = lvUserMessageList.ItemContainerGenerator.ContainerFromItem(lvSimSimiMessageList.SelectedItem) as ListViewItem;
-
-            if (item != null)
             {
                 item.Focus();
             }

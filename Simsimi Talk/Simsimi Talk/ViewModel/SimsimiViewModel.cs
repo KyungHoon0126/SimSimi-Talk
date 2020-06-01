@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using Prism.Mvvm;
-using Simsimi_Talk.Model;
+using SimSimi_Talk.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace Simsimi_Talk.ViewModel
+namespace SimSimi_Talk.ViewModel
 {
     public class SimsimiViewModel : BindableBase
     {

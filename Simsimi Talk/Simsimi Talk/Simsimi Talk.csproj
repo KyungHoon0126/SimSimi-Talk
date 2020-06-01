@@ -70,7 +70,7 @@
     </ApplicationDefinition>
     <Compile Include="Model\SimSimi.cs" />
     <Compile Include="Model\User.cs" />
-    <Compile Include="ViewModel\SimsimiViewModel.cs" />
+    <Compile Include="ViewModel\SimSimiViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -113,7 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\SendButtonImg.png" />
-    <Resource Include="Assets\Simsimi.png" />
+    <Resource Include="Assets\SimSimi.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

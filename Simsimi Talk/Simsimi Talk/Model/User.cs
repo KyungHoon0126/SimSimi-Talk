@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Simsimi_Talk.Model
+namespace SimSimi_Talk.Model
 {
     public class User : BindableBase
     {

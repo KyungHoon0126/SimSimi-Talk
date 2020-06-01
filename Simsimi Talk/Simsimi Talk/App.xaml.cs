@@ -1,4 +1,4 @@
-﻿using Simsimi_Talk.ViewModel;
+﻿using SimSimi_Talk.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Simsimi_Talk
+namespace SimSimi_Talk
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -68,7 +68,7 @@ namespace SimSimi_Talk.ViewModel
                 {
                     request.Headers.TryAddWithoutValidation
                     (
-                        "x-api-key", "lXlh0jm0ZMbYsTgaODd9FAsQChwYwLtngaPmAn-u"
+                        "x-api-key", "kUTVvDbFzyG1VfGbSD.t.eWaQzFX~QujrTyz-f-i"
                     );
 
                     request.Content = new StringContent("{\n \"utext\": \"" + userMsg + "\", \n\"lang\": \"ko\" \n}");

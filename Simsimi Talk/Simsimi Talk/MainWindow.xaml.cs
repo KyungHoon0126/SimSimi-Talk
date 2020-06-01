@@ -59,8 +59,12 @@ namespace SimSimi_Talk
         {
             App.simsimiViewModel.GetSimsimiMessage(tbUserMsg.Text);
 
-            ScrollToLast(lvUserMessageList);
-            ScrollToLast(lvSimSimiMessageList);
+            // [ 사용 X ] -> ScrollToBottom() 으로 대체
+            //ScrollToLast(lvUserMessageList);
+            //ScrollToLast(lvSimSimiMessageList);
+
+            ScrollToBottom(lvUserMessageList);
+            ScrollToBottom(lvSimSimiMessageList);
 
             tbUserMsg.Text = string.Empty;
         }
@@ -72,54 +76,28 @@ namespace SimSimi_Talk
             {
                 App.simsimiViewModel.GetSimsimiMessage(tbUserMsg.Text);
 
-                ScrollToLast(lvUserMessageList);
-                ScrollToLast(lvSimSimiMessageList);
+                // [ 사용 X ] -> ScrollToBottom() 으로 대체
+                //ScrollToLast(lvUserMessageList);
+                //ScrollToLast(lvSimSimiMessageList);
+
+                ScrollToBottom(lvUserMessageList);
+                ScrollToBottom(lvSimSimiMessageList);
 
                 tbUserMsg.Text = string.Empty;
-
-                // App.simsimiViewModel.TbMsgHeight = 
-
-                FindMyStuff();
             }
         }
 
-        private void FindMyStuff()
+        public void ScrollToBottom(ListView listView)
         {
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(lvUserMessageList); i++)
+            if (VisualTreeHelper.GetChildrenCount(listView) > 0)
             {
-                Visual visual = VisualTreeHelper.GetChild(lvUserMessageList, i) as Visual;
-                Debug.WriteLine(visual);
+                Border border = (Border)VisualTreeHelper.GetChild(listView, 0);
+                ScrollViewer scrollViewer = (ScrollViewer)VisualTreeHelper.GetChild(border, 0);
+                scrollViewer.ScrollToBottom();
             }
-
-            // 찾는 Control 요소
-            //var stuff = this.GetChildren(this.lvUserMessageList);
-
-            // 요소 확인
-            //foreach (var item in stuff)
-            //{
-            //    Debug.WriteLine(item);
-            //}
         }
 
-        // Control안의 Control 접근을 위한 시각적 트리 탐색
-        private List<FrameworkElement> GetChildren(DependencyObject parent)
-        {
-            List<FrameworkElement> controls = new List<FrameworkElement>();
-
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); ++i)
-            {
-                var child = VisualTreeHelper.GetChild(parent, i);
-                if (child is FrameworkElement)
-                {
-                    controls.Add(child as FrameworkElement);
-                }
-                controls.AddRange(this.GetChildren(child));
-            }
-
-            return controls;
-        }
-
-        // Scroll To Last Method
+        #region Find Scroll To LastItem 
         public void ScrollToLast(ListView listView)
         {
             Debug.WriteLine(listView.Name);
@@ -137,7 +115,6 @@ namespace SimSimi_Talk
             }
         }
 
-        // Find Scroll To LastItem 
         public void ScrollToLastItem<T>(ListView listView, ObservableCollection<T> collection) where T : class
         {
             listView.SelectedItem = listView.Items.GetItemAt(collection.Count - 1);
@@ -150,5 +127,6 @@ namespace SimSimi_Talk
                 item.Focus();
             }
         }
+        #endregion
     }
 }

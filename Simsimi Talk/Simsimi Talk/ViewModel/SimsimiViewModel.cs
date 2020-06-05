@@ -38,8 +38,8 @@ namespace SimSimi_Talk.ViewModel
             }
         }
 
-        private int _tbMsgHeight;
-        public int TbMsgHeight
+        private double _tbMsgHeight;
+        public double TbMsgHeight
         {
             get => _tbMsgHeight;
             set

@@ -27,14 +27,6 @@ namespace SimSimi_Talk
     /// </summary>
     public partial class MainWindow : Window
     {
-        delegate void ScrollToLastItemDelegate();
-
-        ListView lvUser;
-        ListView lvSimSimi;
-
-        ObservableCollection<Model.User> users;
-        ObservableCollection<Model.SimSimi> simSimis;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -44,17 +36,8 @@ namespace SimSimi_Talk
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             this.DataContext = App.simsimiViewModel;
-
-            // ListView
-            lvUser = lvUserMessageList;
-            lvSimSimi = lvSimSimiMessageList;
-
-            // ObservableCollection
-            users = App.simsimiViewModel.UserMsgItems;
-            simSimis = App.simsimiViewModel.SimSimiMsgItems;
         }
 
-        // SendButton Click Event
         private void btnSendMsg_Click(object sender, RoutedEventArgs e)
         {
             App.simsimiViewModel.GetSimsimiMessage(tbUserMsg.Text);
@@ -63,6 +46,7 @@ namespace SimSimi_Talk
             //ScrollToLast(lvUserMessageList);
             //ScrollToLast(lvSimSimiMessageList);
 
+            // Message 창 ScrollViewer 자동 맞춤
             ScrollToBottom(lvUserMessageList);
             ScrollToBottom(lvSimSimiMessageList);
 
@@ -78,8 +62,9 @@ namespace SimSimi_Talk
 
                 // [ 사용 X ] -> ScrollToBottom() 으로 대체
                 //ScrollToLast(lvUserMessageList);
-                //ScrollToLast(lvSimSimiMessageList);
+                ScrollToLast(lvSimSimiMessageList);
 
+                // Message 창 ScrollViewer 자동 맞춤
                 ScrollToBottom(lvUserMessageList);
                 ScrollToBottom(lvSimSimiMessageList);
 
@@ -88,7 +73,7 @@ namespace SimSimi_Talk
         }
 
         public void ScrollToBottom(ListView listView)
-        {
+        { 
             if (VisualTreeHelper.GetChildrenCount(listView) > 0)
             {
                 Border border = (Border)VisualTreeHelper.GetChild(listView, 0);
@@ -119,13 +104,35 @@ namespace SimSimi_Talk
         {
             listView.SelectedItem = listView.Items.GetItemAt(collection.Count - 1);
             listView.ScrollIntoView(listView.SelectedItem);
-            
-            ListViewItem item = listView.ItemContainerGenerator.ContainerFromItem(listView.SelectedItem) as ListViewItem;
-            
-            if(item != null)
+
+            // Total Count
+            var simSimiMsgCnt = App.simsimiViewModel.SimSimiMsgItems.Count;
+
+            // Message List의 마지막 index에서 끝까지, 즉 마지막 메시지일 때
+            for (int i = simSimiMsgCnt - 1; i < App.simsimiViewModel.SimSimiMsgItems.Count; i++)
             {
-                item.Focus();
+                if(i == 0)
+                {
+                    App.simsimiViewModel.TbMsgHeight = Convert.ToDouble(App.simsimiViewModel.SimSimiMsgItems[i].SimSimiMessage.Length);
+                    Debug.WriteLine(App.simsimiViewModel.TbMsgHeight);
+                }
+                if (i == simSimiMsgCnt)
+                {
+                    App.simsimiViewModel.TbMsgHeight = Convert.ToDouble(App.simsimiViewModel.SimSimiMsgItems[i].SimSimiMessage.Length);
+                    Debug.WriteLine(App.simsimiViewModel.TbMsgHeight);
+                }
             }
+            
+
+            // 마지막 메시지의 Height를 구함.
+            // App.simsimiViewModel.TbMsgHeight = (listView.SelectedItem as ListView).Height;
+
+            // ListViewItem item = listView.ItemContainerGenerator.ContainerFromItem(listView.SelectedItem) as ListViewItem;
+
+            //if(item != null)
+            //{
+            //    item.Focus();
+            //}
         }
         #endregion
     }

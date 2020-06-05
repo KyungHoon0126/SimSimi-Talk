@@ -50,8 +50,8 @@
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="7.5*"/>
-            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" x:Name="gdTitle">

@@ -14,6 +14,6 @@ namespace SimSimi_Talk
     /// </summary>
     public partial class App : Application
     {
-        public static SimsimiViewModel simsimiViewModel = new SimsimiViewModel();
+        public static SimSimiViewModel simsimiViewModel = new SimSimiViewModel();
     }
 }

@@ -40,7 +40,7 @@ namespace SimSimi_Talk
 
         private void btnSendMsg_Click(object sender, RoutedEventArgs e)
         {
-            App.simsimiViewModel.GetSimsimiMessage(tbUserMsg.Text);
+            App.simsimiViewModel.GetSimSimiMessage(tbUserMsg.Text);
 
             // [ 사용 X ] -> ScrollToBottom() 으로 대체
             //ScrollToLast(lvUserMessageList);
@@ -58,11 +58,11 @@ namespace SimSimi_Talk
         {
             if(e.Key == Key.Return)
             {
-                App.simsimiViewModel.GetSimsimiMessage(tbUserMsg.Text);
+                App.simsimiViewModel.GetSimSimiMessage(tbUserMsg.Text);
 
                 // [ 사용 X ] -> ScrollToBottom() 으로 대체
                 //ScrollToLast(lvUserMessageList);
-                ScrollToLast(lvSimSimiMessageList);
+                // ScrollToLast(lvSimSimiMessageList);
 
                 // Message 창 ScrollViewer 자동 맞춤
                 ScrollToBottom(lvUserMessageList);

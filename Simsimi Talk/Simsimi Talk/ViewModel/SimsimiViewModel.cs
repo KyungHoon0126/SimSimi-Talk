@@ -13,7 +13,7 @@ using System.Windows.Controls;
 
 namespace SimSimi_Talk.ViewModel
 {
-    public class SimsimiViewModel : BindableBase
+    public class SimSimiViewModel : BindableBase
     {
         private const string API_URL = "https://wsapi.simsimi.com/190410/talk";
 
@@ -60,7 +60,7 @@ namespace SimSimi_Talk.ViewModel
         //     }' 
 
         // Request
-        public async void GetSimsimiMessage(string userMsg)
+        public async void GetSimSimiMessage(string userMsg)
         {
             using (var httpClient = new HttpClient())
             {
@@ -68,7 +68,7 @@ namespace SimSimi_Talk.ViewModel
                 {
                     request.Headers.TryAddWithoutValidation
                     (
-                        "x-api-key", "kUTVvDbFzyG1VfGbSD.t.eWaQzFX~QujrTyz-f-i"
+                        "x-api-key", "API-KEY"
                     );
 
                     request.Content = new StringContent("{\n \"utext\": \"" + userMsg + "\", \n\"lang\": \"ko\" \n}");

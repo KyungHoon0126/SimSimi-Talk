@@ -1,2 +1,11 @@
-# Simsimi-Talk
-## 심심이와 채팅(C# & WPF) - SimSimi API를 이용한 채팅 구현
+# SimSimi-Talk, 심심이와 채팅
+### SimSimi API를 이용한 채팅 프로그램 입니다.
+
+## Stack
+||Window|Web|
+|:-----------:|:-----:|
+|Development People|김경훈|
+|Development Language|C#|
+|Development Tool||WPF, Visual Studio 2019|
+
+## UI / UX
